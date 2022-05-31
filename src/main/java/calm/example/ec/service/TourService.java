@@ -41,7 +41,7 @@ public class TourService {
             String bullets, String keywords, String tourPackageName,
             Difficulty difficulty, Region region) {
 
-        TourPackage tourPackage = tourPackageRepository.findById(tourPackageName)
+        TourPackage tourPackage = tourPackageRepository.findByName(tourPackageName)
                 .orElseThrow(() -> new RuntimeException("Tour Package not found " + tourPackageName));
 
         return tourRepository.save(new Tour(title, description, blurb, price, duration, bullets, keywords, tourPackage,

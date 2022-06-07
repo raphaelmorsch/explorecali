@@ -9,17 +9,16 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RestResource;
 
 import calm.example.ec.domain.TourRating;
-import calm.example.ec.domain.TourRatingPk;
 
 @RestResource(exported = false)
-public interface TourRatingRepository extends CrudRepository<TourRating, TourRatingPk> {
+public interface TourRatingRepository extends CrudRepository<TourRating, String> {
 
    /**
     * Lookup all the TourRatings for a tour
     * @param tourId
     * @return
     */
-   List<TourRating> findByPkTourId(Integer tourId);
+   List<TourRating> findByTourId(String tourId);
 
    /**
     * Lookup TourRating by the TourId and CustomerId
@@ -27,8 +26,8 @@ public interface TourRatingRepository extends CrudRepository<TourRating, TourRat
     * @param customerId
     * @return Optional of TourRating
     */
-   Optional<TourRating> findByPkTourIdAndPkCustomerId(Integer tourId, Integer customerId);
+   Optional<TourRating> findByTourIdAndCustomerId(String tourId, Integer customerId);
 
-   Page<TourRating> findByPkTourId(Integer tourId, Pageable pageable);
+   Page<TourRating> findByTourId(String tourId, Pageable pageable);
     
 }

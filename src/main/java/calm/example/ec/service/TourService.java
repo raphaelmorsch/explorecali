@@ -1,10 +1,10 @@
 package calm.example.ec.service;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import calm.example.ec.domain.Difficulty;
-import calm.example.ec.domain.Region;
 import calm.example.ec.domain.Tour;
 import calm.example.ec.domain.TourPackage;
 import calm.example.ec.repo.TourPackageRepository;
@@ -23,29 +23,19 @@ public class TourService {
         this.tourRepository = tourRepository;
     }
 
-    /**
-     * 
-     * @param title title
-     * @param description description
-     * @param blurb blurb
-     * @param price price
-     * @param duration duration
-     * @param bullets bullets
-     * @param keywords keywords
-     * @param tourPackageName tourPacakageName
-     * @param difficulty difficulty
-     * @param region region
-     * @return Tour entity
-     */
-    public Tour createTour(String title, String description, String blurb, Integer price, String duration,
-            String bullets, String keywords, String tourPackageName,
-            Difficulty difficulty, Region region) {
+   /**
+    * 
+    * @param title
+    * @param tourPackageName
+    * @param details
+    * @return
+    */
+    public Tour createTour(String title, String tourPackageName, Map<String, String> details) {
 
         TourPackage tourPackage = tourPackageRepository.findByName(tourPackageName)
                 .orElseThrow(() -> new RuntimeException("Tour Package not found " + tourPackageName));
 
-        return tourRepository.save(new Tour(title, description, blurb, price, duration, bullets, keywords, tourPackage,
-                difficulty, region));
+        return tourRepository.save(new Tour(title, tourPackage, details));
     }
 
     public long total() {
